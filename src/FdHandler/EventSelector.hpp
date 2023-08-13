@@ -16,6 +16,8 @@ public:
     void Remove();
     
     int Run();
+    int GetMaxFd() { return max_fd; }
+    int GetFdArrayLen() { return fd_array_len; }
 
 private:
     void ReinitArray();

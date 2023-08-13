@@ -32,7 +32,7 @@ void EventSelector::ReinitArray()
 void EventSelector::Add(FdHandler *h)
 {
     int fd = h->GetFd();
-    if (!fd_array || fd < fd_array_len) {
+    if (!fd_array || fd > fd_array_len) {
         fd_array_len = init_fd_array_len > fd ? init_fd_array_len : fd + 1;
         ReinitArray(); 
     }
