@@ -40,3 +40,17 @@ void EventSelector::Add(FdHandler *h)
     if (fd > max_fd)
         max_fd = fd;
 }
+
+void EventSelector::Remove(FdHandler *h)
+{
+    int fd = h->GetFd();
+    if (fd >= fd_array_len)
+        return;
+    fd_array[fd] = 0;
+    if (fd == max_fd) {
+        for (; max_fd >= 0; max_fd--) {
+            if (fd_array[max_fd]) 
+                return;
+        }
+    }
+}

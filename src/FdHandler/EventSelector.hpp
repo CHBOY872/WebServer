@@ -13,7 +13,7 @@ public:
     ~EventSelector();
 
     void Add(FdHandler *h);
-    void Remove();
+    void Remove(FdHandler *h);
     
     int Run();
     int GetMaxFd() { return max_fd; }

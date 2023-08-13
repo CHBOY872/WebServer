@@ -6,7 +6,8 @@ OPTIMIZATION=-O0
 DEBUG=-g
 RELEASE=-s
 
-CFLAGS=-ansi -pedantic -pedantic-errors -Wall -Wextra -Werror \
+CFLAGS=-ansi -pedantic -Wall -static \
+	   -pedantic-errors -Wextra -Werror \
 	   -fno-exceptions -fno-rtti -Wno-unused-parameter -Wno-unused-variable \
 	   -Wno-unused-but-set-variable -Wno-sign-compare \
 	   -Wno-missing-field-initializers -Wno-unused-function -Wno-unused-label \
