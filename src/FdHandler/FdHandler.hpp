@@ -15,7 +15,7 @@ public:
     void SetRead(bool _want_read) { want_read = _want_read; }
     void SetWrite(bool _want_write) { want_write = _want_write; }
 
-    virtual void Handle() = 0;
+    virtual void Handle(bool r, bool w) = 0;
 };
 
 #endif

@@ -4,7 +4,7 @@
 #include "EventSelector.hpp"
 
 enum {
-    init_fd_array_len = 32,
+    init_fd_array_len = 32
 };
 
 EventSelector::EventSelector() : fd_array_len(init_fd_array_len), max_fd(-1) 
@@ -83,7 +83,7 @@ int EventSelector::Run()
             bool w = FD_ISSET(i, &wrs);
             bool r = FD_ISSET(i, &rds);
             if (w || r)
-                fd_array[i]->Handle();
+                fd_array[i]->Handle(w, r);
         }
     }
     return 0;
