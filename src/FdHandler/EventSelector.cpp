@@ -1,3 +1,6 @@
+#include <sys/select.h>
+#include <stdio.h>
+
 #include "EventSelector.hpp"
 
 enum {
@@ -53,4 +56,35 @@ void EventSelector::Remove(FdHandler *h)
                 return;
         }
     }
+}
+
+int EventSelector::Run()
+{
+    fd_set rds, wrs;
+    int i;
+    for (;;)
+    {
+        FD_ZERO(&rds);
+        FD_ZERO(&wrs);
+        for (i = 0; i <= max_fd; i++) {
+            if (fd_array[i]) {
+                if (fd_array[i]->WantRead())
+                    FD_SET(i, &rds);
+                if (fd_array[i]->WantWrite())
+                    FD_SET(i, &wrs);
+            }
+        }
+        int res = select(max_fd + 1, &rds, &wrs, 0, 0);
+        if (res <= 0) {
+            perror("select");
+            return 1;
+        }
+        for (i = 0; i <= max_fd; i++) {
+            bool w = FD_ISSET(i, &wrs);
+            bool r = FD_ISSET(i, &rds);
+            if (w || r)
+                fd_array[i]->Handle();
+        }
+    }
+    return 0;
 }
